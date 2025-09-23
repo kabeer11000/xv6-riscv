@@ -114,7 +114,7 @@ $U/_forktest: $U/forktest.o $(ULIB)
 	$(OBJDUMP) -S $U/_forktest > $U/forktest.asm
 
 mkfs/mkfs: mkfs/mkfs.c $K/fs.h $K/param.h
-	gcc -Wno-unknown-attributes -I. -o mkfs/mkfs mkfs/mkfs.c
+	gcc -I. -o mkfs/mkfs mkfs/mkfs.c
 
 # Prevent deletion of intermediate files, e.g. cat.o, after first build, so
 # that disk image changes after first build are persistent until clean.  More
@@ -123,9 +123,9 @@ mkfs/mkfs: mkfs/mkfs.c $K/fs.h $K/param.h
 .PRECIOUS: %.o
 
 UPROGS=\
-    $U/_eesha\
-	$U/_sleep\
-	$U/_cat\
+	$U/_usersleep\
+	$U/_memdump\
+	$U/_sixfive\
 	$U/_echo\
 	$U/_forktest\
 	$U/_grep\
@@ -133,9 +133,11 @@ UPROGS=\
 	$U/_kill\
 	$U/_ln\
 	$U/_ls\
+	$U/_memdump\
 	$U/_mkdir\
 	$U/_rm\
 	$U/_sh\
+	$U/_sixfive\
 	$U/_stressfs\
 	$U/_usertests\
 	$U/_grind\
