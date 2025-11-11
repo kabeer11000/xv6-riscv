@@ -123,6 +123,7 @@ mkfs/mkfs: mkfs/mkfs.c $K/fs.h $K/param.h
 .PRECIOUS: %.o
 
 UPROGS=\
+	$U/_getc\
 	$U/_pingpong\
 	$U/_cat\
 	$U/_echo\

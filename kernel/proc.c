@@ -146,6 +146,9 @@ found:
   p->context.ra = (uint64)forkret;
   p->context.sp = p->kstack + PGSIZE;
 
+  // Initialize syscall counter
+  p->syscallcount = 0;
+
   return p;
 }
 

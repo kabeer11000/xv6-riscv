@@ -105,3 +105,10 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// return how many syscalls this process has made
+uint64
+sys_getsyscallcount(void)
+{
+  return myproc()->syscallcount;
+}
