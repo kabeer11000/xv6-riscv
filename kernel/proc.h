@@ -81,6 +81,11 @@ struct trapframe {
 
 enum procstate { UNUSED, USED, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
 
+// MLFQ constants
+#define MLFQ_QUEUES 4               // Number of priority levels (0=highest, 3=lowest)
+#define BOOST_INTERVAL 100           // Boost all to highest priority every N ticks
+#define TIME_SLICES {1, 2, 4, 8}    // Time slice for each queue level (in ticks)
+
 // Per-process state
 struct proc {
   struct spinlock lock;
@@ -104,4 +109,10 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+
+  // MLFQ scheduling fields (protected by p->lock):
+  int priority;                // Current priority queue (0-3, 0=highest)
+  int time_slice;              // Time slice remaining for current priority
+  int ticks_allotted;          // Total ticks allocated at current priority
+  int in_queue;                // Index in queue, or -1 if not queued
 };

@@ -171,6 +171,9 @@ clockintr()
     release(&tickslock);
   }
 
+  // Handle MLFQ scheduling: demotion and boosting
+  mlfq_tick();
+
   // ask for the next timer interrupt. this also clears
   // the interrupt request. 1000000 is about a tenth
   // of a second.
